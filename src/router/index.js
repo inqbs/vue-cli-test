@@ -27,6 +27,16 @@ const routes = [
     path: '/dropdown',
     name: 'Dropdown',
     component: () => import('../views/Dropdown.vue')
+  },
+  {
+    path: '/form',
+    name: 'Form',
+    component: () => import('../views/Form.vue')
+  },
+  {
+    path: '/crud',
+    name: 'Crud',
+    component: () => import('../views/Crud.vue')
   }
 ]
 
