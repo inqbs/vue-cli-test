@@ -26,10 +26,16 @@
                   <b-button variant="warning" @click.stop="edit(idx)">
                     <b-icon-pencil aria-hidden="true"></b-icon-pencil>
                   </b-button>
-                  <b-button variant="danger" @click.stop="remove(idx)">
+                  <b-button variant="danger" :id="'btn-remove-'+idx">
                     <b-icon-trash aria-hidden="true"></b-icon-trash>
                   </b-button>
                 </b-button-group>
+                <b-popover :target="'btn-remove-'+idx" triggers="hover" placement="top">
+                  <p>삭제하시겠습니까?</p>
+                  <b-button variant="danger" size="sm" @click.stop="remove(idx)">
+                    <b-icon-trash aria-hidden="true"></b-icon-trash>
+                  </b-button>
+                </b-popover>
             </b-list-group-item>
           </transition-group>
           <b-list-group-item v-if="taskList.length <= 0">
@@ -72,9 +78,7 @@ export default {
       this.isEditMode = true
     },
     remove(idx){
-      if(!!confirm('Are you sure delete?')){
-        this.taskList.splice(idx,1)
-      }
+      this.taskList.splice(idx,1)
     }
   }
 };
