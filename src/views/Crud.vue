@@ -17,6 +17,9 @@
       </b-col>
     </b-row>
     <b-row class="justify-content-md-center">
+      {{taskList}}
+    </b-row>
+    <b-row class="justify-content-md-center">
       <b-col cols="6">
         <b-list-group class="crud__list">
           <transition-group name="fade">
@@ -31,7 +34,7 @@
                   </b-button>
                 </b-button-group>
                 <b-popover :target="'btn-remove-'+idx" triggers="hover" placement="top">
-                  <p>삭제하시겠습니까?</p>
+                  <template #title>삭제하시겠습니까?</template>
                   <b-button variant="danger" size="sm" @click.stop="remove(idx)">
                     <b-icon-trash aria-hidden="true"></b-icon-trash>
                   </b-button>
@@ -50,12 +53,14 @@
 <script>
 export default {
   name: "Crud",
+  computed:{
+    taskList() { return this.$store.getters.taskList},
+  },
   data(){
     return {
       target: 0,
       msg: '',
       isEditMode: false,
-      taskList: []
     }
   },
   methods:{
@@ -63,9 +68,9 @@ export default {
       if(!this.msg){
         return;
       }else if(!!this.isEditMode){
-        this.taskList[this.target] = this.msg
+        this.$store.dispatch('edit', {msg: this.msg, idx: this.target})
       }else{
-        this.taskList.push(this.msg)
+        this.$store.dispatch('add', this.msg)
       }
 
       this.msg = ''
@@ -78,7 +83,7 @@ export default {
       this.isEditMode = true
     },
     remove(idx){
-      this.taskList.splice(idx,1)
+      this.$store.dispatch('remove', idx)
     }
   }
 };
