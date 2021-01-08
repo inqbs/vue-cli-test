@@ -8,7 +8,6 @@ const getters = {
 
 const actions = {
 	add({ commit }, msg) {
-		console.log(msg)
 		commit('add', msg)
 	},
 	edit({ commit }, param) {
@@ -24,7 +23,6 @@ const mutations = {
 		state.taskList.push(msg)
 	},
 	edit(state, param) {
-		console.log(param)
 		state.taskList[param.idx] = param.msg
 	},
 	remove(state, idx) {
